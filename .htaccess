@@ -1,6 +1,4 @@
 Options -Indexes
-RewriteEngine On
-# RewriteCond %{SERVER_PORT} 80
 
 # One year for image files
 <filesMatch ".(jpg|jpeg|png|gif|ico)$">
@@ -10,15 +8,14 @@ RewriteEngine On
 <filesMatch ".(css|js)$">
     Header set Cache-Control "max-age=2628000, public"
 </filesMatch>
-<VirtualHost *:8081>
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html
-    ErrorLog /error.log
-</VirtualHost>
 
-<Directory /var/www/html>
-    Require all granted
-</Directory>
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
+</IfModule>
 
 <IfModule mod_expires.c>
     ExpiresActive On

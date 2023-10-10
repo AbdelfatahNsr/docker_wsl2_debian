@@ -65,22 +65,22 @@ This guide outlines the steps to customize an Apache web server configuration wi
 2. Build your custom Docker image using the following command:
 
    ```bash
-   docker build -t my-custom-apache-image .
+   docker build -t api-end .
    ```
 
-   - Replace `my-custom-apache-image` with your preferred image name.
+   - Replace `api-end` with your preferred image name.
 
 ## 4. Run the Docker Container
 
 1. Once the image is built, run a Docker container from it, exposing the necessary ports and potentially mounting your web application files as volumes into the container:
 
    ```bash
-   docker run -d -p 8080:80 --name my-custom-apache-container -v /path/to/your/web/app:/var/www/html my-custom-apache-image
+   docker run -d -p 8081:80 --name api-end-container -v $(pwd):/var/www/html api-end
    ```
 
    - `-d` runs the container in detached mode.
-   - `-p 8080:80` maps port 8080 on your host to port 80 in the container.
-   - `-v /path/to/your/web/app:/var/www/html` mounts your web application files into the container.
+   - `-p 8081:80` maps port 8081 on your host to port 80 in the container.
+   - `-v $(pwd):/var/www/html` mounts your web application files into the container.
 
    - Adjust the ports and volume mapping as needed for your specific setup.
 
